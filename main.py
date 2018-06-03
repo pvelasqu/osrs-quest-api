@@ -6,12 +6,17 @@ import requests
 import os
 
 app = Flask(__name__)
+# Retrieves the SQLALCHEMY_DATABASE_URI from the Environment Variables. This is stored through either the app.yaml for GAE
+# or set locally by yourself.
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
 
 class Quest(db.Model):
+    """
+    Class for the Quests in OSRS, contains all of the requirements that a quest would have as well as the quest name.
+    """
     id = db.Column(db.Integer, primary_key=True)
     quest_name = db.Column(db.String(50), unique=True)
     strength = db.Column(db.Integer)
@@ -42,6 +47,10 @@ class Quest(db.Model):
                  runecrafting=0, hitpoints=0, crafting=0, mining=0, smithing=0, fishing=0, cooking=0,
                  firemaking=0, woodcutting=0, agility=0, herblore=0, thieving=0, fletching=0,
                  slayer=0, farming=0, construction=0, hunter=0):
+        """
+        @params all of the requirements for a quest, defaults to 0 if not specified.
+        Initializes the quest object with the passed parameters.
+        """
         self.quest_name = quest_name
         self.strength = strength
         self.crafting = crafting
