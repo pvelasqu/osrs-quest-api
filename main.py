@@ -3,11 +3,10 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from skills_dictionary.SkillsDictionary import SkillDictionary
 import requests
-from utilities.connection import database_connection_string
+import os
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = database_connection_string()
-print(database_connection_string())
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
