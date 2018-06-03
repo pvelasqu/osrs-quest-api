@@ -3,11 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from skills_dictionary.SkillsDictionary import SkillDictionary
 import requests
-import os
+from utilities.connection import database_connection_string
 
 app = Flask(__name__)
-basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://QuestAPI:Winter12$@127.0.0.1:3306/quest_api_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = database_connection_string()
+print(database_connection_string())
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
