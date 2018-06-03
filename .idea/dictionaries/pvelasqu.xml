@@ -4,6 +4,7 @@
       <w>cloudsql</w>
       <w>jagex</w>
       <w>sqlalchemy</w>
+      <w>venv</w>
       <w>yaml</w>
     </words>
   </dictionary>
