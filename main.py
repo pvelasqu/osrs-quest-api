@@ -68,7 +68,7 @@ class Quest(db.Model):
         self.hitpoints = hitpoints
 
 
-@app.route("/quest", methods=["POST"])
+@app.route("/api/quest", methods=["POST"])
 def add_quest():
     quest_name = request.json['quest_name']
     strength = request.json['strength']
@@ -106,7 +106,7 @@ def add_quest():
     return jsonify({"message": "Quest Added!"})
 
 
-@app.route("/quest", methods=["GET"])
+@app.route("/api/quest", methods=["GET"])
 def get_all_quests():
     all_quests = Quest.query.all()
     quest_output = []
@@ -142,7 +142,7 @@ def get_all_quests():
     return jsonify({'Quests': quest_output})
 
 
-@app.route("/quest/<quest_name>", methods=["GET"])
+@app.route("/api/quest/<quest_name>", methods=["GET"])
 def get_one_quest(quest_name):
     quest = Quest.query.filter_by(quest_name=quest_name).first()
     if not quest:
@@ -177,7 +177,7 @@ def get_one_quest(quest_name):
     return jsonify({'Quests': quest_data})
 
 
-@app.route("/user/<username>", methods=["GET"])
+@app.route("/api/user/<username>", methods=["GET"])
 def get_doable_quests(username):
     jagex_api_url = "http://services.runescape.com/m=hiscore_oldschool/index_lite.ws?player=" + username
     player_request = requests.get(jagex_api_url).text.split(',')
@@ -217,7 +217,7 @@ def get_doable_quests(username):
     return jsonify({'Stats': skills.skills, 'Name': username, 'Quest': quest_output})
 
 
-@app.route("/", methods=["GET"])
+@app.route("/api/", methods=["GET"])
 def index():
     return "Welcome to the Oldschool-Runescape Quest API"
 
